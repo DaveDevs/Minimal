@@ -1,4 +1,7 @@
-﻿namespace Minimal.Api.Bootstrap
+﻿using Actions;
+using Model.Utils;
+
+namespace Minimal.Api.Bootstrap
 {
     public static class AppBuilder
     {
@@ -11,6 +14,8 @@
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<ModelDataContext>();
+            builder.Services.AddScoped<QueryFactory>();
             var app = builder.Build();
 
             return app;

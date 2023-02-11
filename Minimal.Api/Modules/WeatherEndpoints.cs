@@ -1,8 +1,8 @@
 ﻿namespace Minimal.Api.Modules
 {
-    public static class FooEndpoints
+    public static class WeatherEndpoints
     {
-        public static void Register(this IEndpointRouteBuilder routeBuilder)
+        public static void RegisterWeatherEndpoints(this IEndpointRouteBuilder routeBuilder)
         {
             var summaries = new[]
             {
