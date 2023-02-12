@@ -10,5 +10,4 @@ app.BuildPipeline();
 app.RegisterWeatherEndpoints();
 app.RegisterArtistEndpoints();
 
-
 app.Run();

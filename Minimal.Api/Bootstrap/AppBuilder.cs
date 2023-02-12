@@ -1,5 +1,9 @@
 ﻿using Actions;
+using Microsoft.AspNetCore.Http.Json;
+using Microsoft.OpenApi.Any;
+using Microsoft.OpenApi.Models;
 using Model.Utils;
+using Model.Utils.Json;
 
 namespace Minimal.Api.Bootstrap
 {
@@ -12,12 +16,24 @@ namespace Minimal.Api.Bootstrap
             // Add services to the container.
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(options =>
+                options.MapType<DateOnly>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Format = "date",
+                    Example = new OpenApiString("2022-01-01")
+                }));
 
             builder.Services.AddDbContext<ModelDataContext>();
             builder.Services.AddScoped<QueryFactory>();
-            var app = builder.Build();
+            builder.Services.AddScoped<CommandFactory>();
 
+            builder.Services.Configure<JsonOptions>(options =>
+            {
+                options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+            });
+
+            var app = builder.Build();
             return app;
         }
     }

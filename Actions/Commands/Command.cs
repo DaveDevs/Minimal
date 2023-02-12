@@ -16,6 +16,6 @@ namespace Actions.Commands
     public abstract class Command<T> : Command
         where T : Entity
     {
-        public abstract void Execute();
+        public abstract Task Execute();
     }
 }

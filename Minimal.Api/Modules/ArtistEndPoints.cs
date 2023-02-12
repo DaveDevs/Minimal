@@ -1,5 +1,7 @@
 ﻿using Actions;
+using Actions.Commands;
 using Actions.Queries;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.Utils;
 
@@ -14,6 +16,14 @@ namespace Minimal.Api.Modules
                 var query = queryFactory.Create<ArtistsQueryAll>();
                 var result = await query.Execute();
                 return result;
+            });
+
+            routeBuilder.MapPost("/Artists/Create", async (ArtistCreateCommand.Properties request, CommandFactory commandFactory) =>
+            {
+                var command = commandFactory.Create<ArtistCreateCommand>();
+                command.Props = request;
+                await command.Execute();
+                return Results.Ok();
             });
         }
     }

@@ -24,8 +24,8 @@ namespace Minimal.Cli.Services
         public void Go()
         {
             var command = this.CommandFactory.Create<ArtistCreateCommand>();
-            command.Name = "Dave";
-            command.DateOfBirth = new DateOnly(1980, 11, 20);
+            command.Props.Name = "Dave";
+            command.Props.DateOfBirth = new DateOnly(1980, 11, 20);
             command.Execute();
         }
     }
