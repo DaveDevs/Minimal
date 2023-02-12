@@ -1,6 +1,7 @@
 ﻿using Actions.Commands;
 using Actions.Queries;
 using Actions;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Model.Entities;
 
@@ -15,7 +16,14 @@ namespace Minimal.Api.Utils
         {
             var command = commandFactory.Create<TCommand>();
             command.Props = request;
-            await command.Execute();
+            try
+            {
+                await command.Execute();
+            }
+            catch (ValidationException ex)
+            {
+                return TypedResults.BadRequest(ex.Errors);
+            }
             return TypedResults.Ok();
         }
 

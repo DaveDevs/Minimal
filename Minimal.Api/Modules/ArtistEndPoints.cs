@@ -18,6 +18,6 @@ public static class ArtistEndPoints
 
         routeBuilder.MapPost($"{BaseRoute}/Search", EndpointUtils.ForQueryPost<ArtistsQuerySearch, Artist, ArtistsQuerySearch.Properties>);
 
-        routeBuilder.MapPost($"{BaseRoute}/Create", EndpointUtils.ForCommand<ArtistCreateCommand, Artist, ArtistCreateCommand.Properties>);
+        routeBuilder.MapPost($"{BaseRoute}/Create", EndpointUtils.ForCommand<ArtistCreateCommand, Artist, ArtistCreateCommand.ArtistCreateProperties>);
     }
 }

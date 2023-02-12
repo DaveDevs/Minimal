@@ -16,11 +16,11 @@ public class Populator
 
     public ModelDataContext DataContext { get; set; }
 
-    public void Go()
+    public async Task Go()
     {
         var command = CommandFactory.Create<ArtistCreateCommand>();
         command.Props.Name = "Dave";
         command.Props.DateOfBirth = new DateOnly(1980, 11, 20);
-        command.Execute();
+        await command.Execute();
     }
 }
