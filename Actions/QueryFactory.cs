@@ -13,7 +13,7 @@ public class QueryFactory
     public ModelDataContext Context { get; set; }
 
     public T Create<T>()
-        where T : Query, new()
+        where T : QueryBase, new()
     {
         var query = new T();
         query.Context = Context;

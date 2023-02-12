@@ -13,10 +13,10 @@ public class CommandFactory
     public ModelDataContext Context { get; set; }
 
     public T Create<T>()
-        where T : Command, new()
+        where T : CommandBase, new()
     {
-        var query = new T();
-        query.Context = Context;
-        return query;
+        var command = new T();
+        command.Context = Context;
+        return command;
     }
 }

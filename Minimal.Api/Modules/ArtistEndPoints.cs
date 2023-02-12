@@ -1,16 +1,22 @@
 ﻿using Actions;
 using Actions.Commands;
 using Actions.Queries;
+using Minimal.Api.Utils;
+using Model.Entities;
 
 namespace Minimal.Api.Modules;
 
 public static class ArtistEndPoints
 {
+    public static string BaseRoute = "/Artists";
+
     public static void RegisterArtistEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet("/Artists", GetArtists);
+        routeBuilder.MapGet(BaseRoute, EndpointUtils.ForQueryGet<ArtistsQueryAll, Artist, UserRequestBase>);
 
-        routeBuilder.MapPost("/Artists/Create", CreateArtists);
+        routeBuilder.MapPost($"{BaseRoute}/Search", EndpointUtils.ForQueryPost<ArtistsQuerySearch, Artist, ArtistsQuerySearch.Properties>);
+
+        routeBuilder.MapPost($"{BaseRoute}/Create", EndpointUtils.ForCommand<ArtistCreateCommand, Artist, ArtistCreateCommand.Properties>);
     }
 
     internal static async Task<IResult> GetArtists(QueryFactory queryFactory)
@@ -18,14 +24,5 @@ public static class ArtistEndPoints
         var query = queryFactory.Create<ArtistsQueryAll>();
         var result = await query.Execute();
         return TypedResults.Ok(result);
-    }
-
-    internal static async Task<IResult> CreateArtists(ArtistCreateCommand.Properties request,
-        CommandFactory commandFactory)
-    {
-        var command = commandFactory.Create<ArtistCreateCommand>();
-        command.Props = request;
-        await command.Execute();
-        return TypedResults.Ok();
     }
 }
