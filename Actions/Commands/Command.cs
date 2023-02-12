@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using Model.Entities;
 using Model.Utils;
-using static Actions.Commands.ArtistCreateCommand;
 
 namespace Actions.Commands;
 
@@ -21,18 +19,15 @@ public abstract class Command<TEntity, TRequest> : CommandBase
 
     public override async Task Execute()
     {
-        await this.Validate();
-        await this.InvokeLogic();
+        await Validate();
+        await InvokeLogic();
     }
 
     public async Task Validate()
     {
-        var validator = this.Props.NewValidator();
-        ValidationResult result = await validator.ValidateAsync(new ValidationContext<TRequest>(this.Props));
-        if (result != null)
-        {
-            throw new ValidationException(result.Errors);
-        }
+        var validator = Props.NewValidator();
+        var result = await validator.ValidateAsync(new ValidationContext<TRequest>(Props));
+        if (result != null) throw new ValidationException(result.Errors);
     }
 
     protected abstract Task InvokeLogic();
@@ -40,12 +35,12 @@ public abstract class Command<TEntity, TRequest> : CommandBase
 
 public abstract class UserRequestBase
 {
-    private class DefaultValidator : AbstractValidator<UserRequestBase>
-    {
-    }
-
     public virtual IValidator NewValidator()
     {
         return new DefaultValidator();
+    }
+
+    private class DefaultValidator : AbstractValidator<UserRequestBase>
+    {
     }
 }
