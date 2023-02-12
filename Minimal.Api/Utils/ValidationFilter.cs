@@ -1,15 +1,26 @@
-﻿using System.Net;
+﻿using Microsoft.Extensions.Logging;
+using System.Net;
+using FluentValidation;
 
 namespace Minimal.Api.Utils;
 
-//public class ValidationFilter<T> : IEndpointFilter
-//{
-//    public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
-//    {
-//        context.
+public class ValidationFilter : IEndpointFilter
+{
+    public virtual async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context,
+        EndpointFilterDelegate next)
+    {
+        object? result;
 
-//        // Otherwise invoke the next filter in the pipeline
-//        return await next.Invoke(context);
-//    }
-//}
+        try
+        {
+            result = await next(context);
+        }
+        catch(ValidationException ex)
+        {
+            return TypedResults.BadRequest(ex.Errors);
+        }
+
+        return result;
+    }
+}
 

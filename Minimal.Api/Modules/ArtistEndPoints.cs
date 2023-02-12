@@ -6,18 +6,18 @@ using Model.Entities;
 
 namespace Minimal.Api.Modules;
 
-public static class ArtistEndPoints
+public static class ArtistEndpoints
 {
     public static string BaseRoute = "/Artists";
 
     public static void RegisterArtistEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.MapGet(BaseRoute, EndpointUtils.ForQueryGet<ArtistsQueryAll, Artist, UserRequestBase>);
+        routeBuilder.QueryList<ArtistsQueryAll, Artist, UserRequestBase>(BaseRoute);
 
-        routeBuilder.MapGet($"{BaseRoute}/{{id:int}}", EndpointUtils.ForQueryGetSingle<ArtistQueryById, Artist, ArtistQueryById.Properties>);
+        routeBuilder.QuerySingle<ArtistQueryById, Artist, ArtistQueryById.Properties>($"{BaseRoute}/{{id:int}}");
 
-        routeBuilder.MapPost($"{BaseRoute}/Search", EndpointUtils.ForQueryPost<ArtistsQuerySearch, Artist, ArtistsQuerySearch.Properties>);
+        routeBuilder.QueryPost<ArtistsQuerySearch, Artist, ArtistsQuerySearch.Properties>($"{BaseRoute}/Search");
 
-        routeBuilder.MapPost($"{BaseRoute}/Create", EndpointUtils.ForCommand<ArtistCreateCommand, Artist, ArtistCreateCommand.ArtistCreateProperties>);
+        routeBuilder.CommandPost<ArtistCreateCommand, Artist, ArtistCreateCommand.ArtistCreateProperties>($"{BaseRoute}/Create");
     }
 }

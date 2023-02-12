@@ -27,7 +27,10 @@ public abstract class Command<TEntity, TRequest> : CommandBase
     {
         var validator = Props.NewValidator();
         var result = await validator.ValidateAsync(new ValidationContext<TRequest>(Props));
-        if (result != null) throw new ValidationException(result.Errors);
+        if (!result.IsValid)
+        {
+            throw new ValidationException(result.Errors);
+        }
     }
 
     protected abstract Task InvokeLogic();
