@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 using Actions.Utils;
 using FluentValidation;
-using Model.Entities;
 using Model.Utils.Json;
 
 namespace Actions.Commands;
@@ -15,7 +14,7 @@ public class ArtistCommandCreate : RootCommand<ArtistCommandCreate.ArtistCreateP
 
     protected override async Task InvokeLogic()
     {
-        await this.Target.CreateArtist(this.Props.Name, this.Props.DateOfBirth); 
+        await Target.CreateArtist(Props.Name, Props.DateOfBirth);
     }
 
     public class ArtistCreateProperties : UserRequestBase

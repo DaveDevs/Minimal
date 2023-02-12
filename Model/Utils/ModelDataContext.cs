@@ -6,12 +6,12 @@ namespace Model.Utils;
 
 public class ModelDataContext : DbContext
 {
-    public DbSet<Artist> Artists => Set<Artist>();
-    public DbSet<Album> Albums => Set<Album>();
-
     public ModelDataContext(DbContextOptions options) : base(options)
     {
     }
+
+    public DbSet<Artist> Artists => Set<Artist>();
+    public DbSet<Album> Albums => Set<Album>();
 
     protected override void ConfigureConventions(ModelConfigurationBuilder builder)
     {

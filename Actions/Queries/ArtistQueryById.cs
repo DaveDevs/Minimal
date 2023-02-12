@@ -6,13 +6,13 @@ namespace Actions.Queries;
 
 public class ArtistQueryById : QuerySingle<Artist, ArtistQueryById.Properties>
 {
+    public override Task<Artist> Execute()
+    {
+        return Context.Artists.SingleAsync(x => x.Id == Props.Id);
+    }
+
     public class Properties : UserRequestBase
     {
         public int Id { get; set; }
-    }
-
-    public override Task<Artist> Execute()
-    {
-        return this.Context.Artists.SingleAsync(x => x.Id == this.Props.Id);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Minimal.Api.Modules;
 using NUnit.Framework;
 
 namespace Minimal.Api.Tests.Modules;

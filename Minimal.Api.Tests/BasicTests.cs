@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using NUnit.Framework;
 
 namespace Minimal.Api.Tests;
@@ -11,8 +10,8 @@ public class BasicTests
     public void Simple_Assert()
     {
         Assert.AreEqual(1, 1);
-    }    
-    
+    }
+
     [Test]
     public async Task HelloWorld_Success()
     {

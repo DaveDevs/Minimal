@@ -16,7 +16,7 @@ public abstract class RootCommand<TRequest> : Command<Root, TRequest>
 {
     protected override void LoadTarget()
     {
-        this.Target = new Root(this.Context);
+        Target = new Root(Context);
     }
 }
 
@@ -32,12 +32,12 @@ public abstract class Command<TEntity, TRequest> : CommandBase
 
     protected virtual void LoadTarget()
     {
-        this.Context.Set<TEntity>().Single(x => x.Id == this.TargetId);
+        Context.Set<TEntity>().Single(x => x.Id == TargetId);
     }
 
     public override async Task Execute()
-    {   
-        this.LoadTarget();
+    {
+        LoadTarget();
         await Validate();
         await InvokeLogic();
     }
@@ -46,10 +46,7 @@ public abstract class Command<TEntity, TRequest> : CommandBase
     {
         var validator = Props.NewValidator();
         var result = await validator.ValidateAsync(new ValidationContext<TRequest>(Props));
-        if (!result.IsValid)
-        {
-            throw new ValidationException(result.Errors);
-        }
+        if (!result.IsValid) throw new ValidationException(result.Errors);
     }
 
     protected abstract Task InvokeLogic();

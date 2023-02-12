@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Model.Utils;
 using NUnit.Framework;
 
@@ -27,6 +25,6 @@ public class AbstractApiTest
     [OneTimeTearDown]
     public void CloseApi()
     {
-        this.Application.Dispose();
+        Application.Dispose();
     }
 }
