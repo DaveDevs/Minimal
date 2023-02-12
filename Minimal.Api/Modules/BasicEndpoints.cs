@@ -1,8 +1,8 @@
 ﻿namespace Minimal.Api.Modules;
 
-public static class WeatherEndpoints
+public static class BasicEndpoints
 {
-    public static void RegisterWeatherEndpoints(this IEndpointRouteBuilder routeBuilder)
+    public static void RegisterBasicEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
         var summaries = new[]
         {
@@ -22,6 +22,10 @@ public static class WeatherEndpoints
                 return forecast;
             })
             .WithName("GetWeatherForecast")
+            .WithOpenApi();
+
+        routeBuilder.MapGet("/hello", () => "Hello World!")
+            .WithName("Hello")
             .WithOpenApi();
     }
 }

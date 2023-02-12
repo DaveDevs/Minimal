@@ -5,7 +5,9 @@ var app = AppBuilder.Build(args);
 
 app.BuildPipeline();
 
-app.RegisterWeatherEndpoints();
+app.RegisterBasicEndpoints();
 app.RegisterArtistEndpoints();
 
 app.Run();
+
+public partial class Program { }
