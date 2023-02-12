@@ -6,18 +6,16 @@ using Model.Utils.Json;
 
 namespace Actions.Commands;
 
-public class ArtistCreateCommand : Command<Artist, ArtistCreateCommand.ArtistCreateProperties>
+public class ArtistCreateCommand : RootCommand<ArtistCreateCommand.ArtistCreateProperties>
 {
     public ArtistCreateCommand()
     {
         Props = new ArtistCreateProperties();
     }
 
-    protected override Task InvokeLogic()
+    protected override async Task InvokeLogic()
     {
-        var artist = new Artist(0, Props.Name, Props.DateOfBirth);
-        Context.Add(artist);
-        return Context.SaveChangesAsync();
+        await this.Target.CreateArtist(this.Props.Name, this.Props.DateOfBirth); 
     }
 
     public class ArtistCreateProperties : UserRequestBase
