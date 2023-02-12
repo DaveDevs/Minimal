@@ -1,19 +1,18 @@
-﻿namespace Minimal.Api.Bootstrap
+﻿namespace Minimal.Api.Bootstrap;
+
+public static class PipelineBuilder
 {
-    public static class PipelineBuilder
+    public static WebApplication BuildPipeline(this WebApplication app)
     {
-        public static WebApplication BuildPipeline(this WebApplication app)
+        // Configure the HTTP request pipeline.
+        if (app.Environment.IsDevelopment())
         {
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            return app;
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
+
+        app.UseHttpsRedirection();
+
+        return app;
     }
 }

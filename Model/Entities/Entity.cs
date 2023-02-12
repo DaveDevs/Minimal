@@ -1,28 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 using Model.Utils;
 
-namespace Model.Entities
+namespace Model.Entities;
+
+public abstract class Entity
 {
-    public abstract class Entity
+    protected Entity(int id)
     {
-        protected Entity(int id)
-        {
-            Id = id;
-        }
-
-        public int Id { get; set; }
-
-        protected Entity(ModelDataContext modelDataContext)
-        {
-            ModelDataContext = modelDataContext;
-        }
-
-        [JsonIgnore]
-        public ModelDataContext ModelDataContext { get; set; }
+        Id = id;
     }
+
+    protected Entity(ModelDataContext modelDataContext)
+    {
+        ModelDataContext = modelDataContext;
+    }
+
+    public int Id { get; set; }
+
+    [JsonIgnore] public ModelDataContext ModelDataContext { get; set; }
 }

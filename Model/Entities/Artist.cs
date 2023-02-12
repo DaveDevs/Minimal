@@ -1,27 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model.Utils;
+﻿using Model.Utils;
 
-namespace Model.Entities
+namespace Model.Entities;
+
+public class Artist : Entity
 {
-    public class Artist : Entity
+    public Artist(ModelDataContext modelDataContext) : base(modelDataContext)
     {
-        public Artist(ModelDataContext modelDataContext) : base(modelDataContext)
-        {
-        }
-
-        public Artist(int id, string name, DateOnly dateOfBirth) : base(id)
-        {
-            Name = name;
-            DateOfBirth = dateOfBirth;
-        }
-
-        public string Name { get; set; }
-
-        public DateOnly DateOfBirth { get; set; }
     }
+
+    public Artist(int id, string name, DateOnly dateOfBirth) : base(id)
+    {
+        Name = name;
+        DateOfBirth = dateOfBirth;
+    }
+
+    public string Name { get; set; }
+
+    public DateOnly DateOfBirth { get; set; }
 }

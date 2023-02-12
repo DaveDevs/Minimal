@@ -1,36 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 using Model.Entities;
 using Model.Utils.Json;
 
-namespace Actions.Commands
+namespace Actions.Commands;
+
+public class ArtistCreateCommand : Command<Artist>
 {
-    public class ArtistCreateCommand : Command<Artist>
+    public ArtistCreateCommand()
     {
-        public class Properties
-        {
-            public string Name { get; set; }
+        Props = new Properties();
+    }
 
-            [JsonConverter(typeof(DateOnlyJsonConverter))]
-            public DateOnly DateOfBirth { get; set; }
-        }
+    public Properties Props { get; set; }
 
-        public ArtistCreateCommand()
-        {
-            Props = new Properties();
-        }
+    public override Task Execute()
+    {
+        var artist = new Artist(0, Props.Name, Props.DateOfBirth);
+        Context.Add(artist);
+        return Context.SaveChangesAsync();
+    }
 
-        public Properties Props { get; set; }
+    public class Properties
+    {
+        public string Name { get; set; }
 
-        public override Task Execute()
-        {
-            var artist = new Artist(0, this.Props.Name, this.Props.DateOfBirth);
-            this.Context.Add(artist);
-            return this.Context.SaveChangesAsync();
-        }
+        [JsonConverter(typeof(DateOnlyJsonConverter))]
+        public DateOnly DateOfBirth { get; set; }
     }
 }

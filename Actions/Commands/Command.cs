@@ -1,21 +1,15 @@
 ﻿using Model.Entities;
 using Model.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Actions.Commands
+namespace Actions.Commands;
+
+public abstract class Command
 {
-    public abstract class Command
-    {
-        public ModelDataContext Context { get; set; }
-    }
+    public ModelDataContext Context { get; set; }
+}
 
-    public abstract class Command<T> : Command
-        where T : Entity
-    {
-        public abstract Task Execute();
-    }
+public abstract class Command<T> : Command
+    where T : Entity
+{
+    public abstract Task Execute();
 }

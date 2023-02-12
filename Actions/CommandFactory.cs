@@ -1,29 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Actions.Commands;
-using Actions.Queries;
+﻿using Actions.Commands;
 using Model.Utils;
 
-namespace Actions
+namespace Actions;
+
+public class CommandFactory
 {
-    public class CommandFactory
+    public CommandFactory(ModelDataContext context)
     {
-        public ModelDataContext Context { get; set; }
+        Context = context;
+    }
 
-        public CommandFactory(ModelDataContext context)
-        {
-            Context = context;
-        }
+    public ModelDataContext Context { get; set; }
 
-        public T Create<T>()
-            where T : Command, new()
-        {
-            var query = new T();
-            query.Context = this.Context;
-            return query;
-        }
+    public T Create<T>()
+        where T : Command, new()
+    {
+        var query = new T();
+        query.Context = Context;
+        return query;
     }
 }

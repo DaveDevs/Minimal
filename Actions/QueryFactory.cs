@@ -1,28 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Actions.Queries;
+﻿using Actions.Queries;
 using Model.Utils;
 
-namespace Actions
+namespace Actions;
+
+public class QueryFactory
 {
-    public class QueryFactory
+    public QueryFactory(ModelDataContext context)
     {
-        public ModelDataContext Context { get; set; }
+        Context = context;
+    }
 
-        public QueryFactory(ModelDataContext context)
-        {
-            Context = context;
-        }
+    public ModelDataContext Context { get; set; }
 
-        public T Create<T>()
-            where T : Query, new()
-        {
-            var query = new T();
-            query.Context = this.Context;
-            return query;
-        }
+    public T Create<T>()
+        where T : Query, new()
+    {
+        var query = new T();
+        query.Context = Context;
+        return query;
     }
 }

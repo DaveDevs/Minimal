@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Model.Utils;
+﻿using Model.Utils;
 
-namespace Model.Entities
+namespace Model.Entities;
+
+public class Album : Entity
 {
-    public class Album : Entity
+    public Album(ModelDataContext modelDataContext) : base(modelDataContext)
     {
-        public Album(ModelDataContext modelDataContext) : base(modelDataContext)
-        {
-        }
-
-        public Album(int id, string name, int releaseYear, Artist artist) : base(id)
-        {
-            Name = name;
-            ReleaseYear = releaseYear;
-            Artist = artist;
-        }
-
-        public string Name { get; set; }
-
-        public int ReleaseYear { get; set; }
-
-        public Artist Artist { get; set; }
     }
+
+    public Album(int id, string name, int releaseYear, Artist artist) : base(id)
+    {
+        Name = name;
+        ReleaseYear = releaseYear;
+        Artist = artist;
+    }
+
+    public string Name { get; set; }
+
+    public int ReleaseYear { get; set; }
+
+    public Artist Artist { get; set; }
 }

@@ -1,32 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Actions;
+﻿using Actions;
 using Actions.Commands;
 using Model.Utils;
 
-namespace Minimal.Cli.Services
+namespace Minimal.Cli.Services;
+
+public class Populator
 {
-    public class Populator
+    public Populator(CommandFactory commandFactory, ModelDataContext dataContext)
     {
-        public CommandFactory CommandFactory { get; set; }
+        CommandFactory = commandFactory;
+        DataContext = dataContext;
+    }
 
-        public ModelDataContext DataContext { get; set; }
+    public CommandFactory CommandFactory { get; set; }
 
-        public Populator(CommandFactory commandFactory, ModelDataContext dataContext)
-        {
-            CommandFactory = commandFactory;
-            DataContext = dataContext;
-        }
+    public ModelDataContext DataContext { get; set; }
 
-        public void Go()
-        {
-            var command = this.CommandFactory.Create<ArtistCreateCommand>();
-            command.Props.Name = "Dave";
-            command.Props.DateOfBirth = new DateOnly(1980, 11, 20);
-            command.Execute();
-        }
+    public void Go()
+    {
+        var command = CommandFactory.Create<ArtistCreateCommand>();
+        command.Props.Name = "Dave";
+        command.Props.DateOfBirth = new DateOnly(1980, 11, 20);
+        command.Execute();
     }
 }

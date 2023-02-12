@@ -11,7 +11,6 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddScoped<QueryFactory>();
         services.AddScoped<Populator>();
         services.AddDbContext<ModelDataContext>();
-
     }).Build();
 
 host.Services.GetService<Populator>().Go();
