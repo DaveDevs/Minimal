@@ -14,15 +14,10 @@ public static class ArtistEndPoints
     {
         routeBuilder.MapGet(BaseRoute, EndpointUtils.ForQueryGet<ArtistsQueryAll, Artist, UserRequestBase>);
 
+        routeBuilder.MapGet($"{BaseRoute}/{{id:int}}", EndpointUtils.ForQueryGetSingle<ArtistQueryById, Artist, ArtistQueryById.Properties>);
+
         routeBuilder.MapPost($"{BaseRoute}/Search", EndpointUtils.ForQueryPost<ArtistsQuerySearch, Artist, ArtistsQuerySearch.Properties>);
 
         routeBuilder.MapPost($"{BaseRoute}/Create", EndpointUtils.ForCommand<ArtistCreateCommand, Artist, ArtistCreateCommand.Properties>);
-    }
-
-    internal static async Task<IResult> GetArtists(QueryFactory queryFactory)
-    {
-        var query = queryFactory.Create<ArtistsQueryAll>();
-        var result = await query.Execute();
-        return TypedResults.Ok(result);
     }
 }

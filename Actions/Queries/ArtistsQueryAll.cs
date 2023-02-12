@@ -4,7 +4,7 @@ using Model.Entities;
 
 namespace Actions.Queries;
 
-public class ArtistsQueryAll : Query<Artist, UserRequestBase>
+public class ArtistsQueryAll : QueryList<Artist, UserRequestBase>
 {
     public override Task<List<Artist>> Execute()
     {
