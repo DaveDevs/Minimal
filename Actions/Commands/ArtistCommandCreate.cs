@@ -17,7 +17,7 @@ public class ArtistCommandCreate : RootCommand<ArtistCommandCreate.ArtistCreateP
         await Target.CreateArtist(Props.Name, Props.DateOfBirth);
     }
 
-    public class ArtistCreateProperties : UserRequestBase
+    public class ArtistCreateProperties : RequestBase
     {
         public string Name { get; set; }
 

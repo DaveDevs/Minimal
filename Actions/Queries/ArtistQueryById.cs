@@ -11,7 +11,7 @@ public class ArtistQueryById : QuerySingle<Artist, ArtistQueryById.Properties>
         return Context.Artists.SingleAsync(x => x.Id == Props.Id);
     }
 
-    public class Properties : UserRequestBase
+    public class Properties : RequestBase
     {
         public int Id { get; set; }
     }

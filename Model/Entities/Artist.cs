@@ -4,6 +4,10 @@ namespace Model.Entities;
 
 public class Artist : Entity
 {
+    public Artist() : base(0)
+    {
+    }
+
     public Artist(ModelDataContext modelDataContext) : base(modelDataContext)
     {
     }

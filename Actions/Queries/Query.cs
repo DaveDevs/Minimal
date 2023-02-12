@@ -18,14 +18,14 @@ public abstract class Query<TReturn, TRequest> : QueryBase
 
 public abstract class QueryList<TEntity, TRequest> : Query<List<TEntity>, TRequest>
     where TEntity : Entity
-    where TRequest : UserRequestBase
+    where TRequest : RequestBase
 {
     public abstract override Task<List<TEntity>> Execute();
 }
 
 public abstract class QuerySingle<TEntity, TRequest> : Query<TEntity, TRequest>
     where TEntity : Entity
-    where TRequest : UserRequestBase
+    where TRequest : RequestBase
 {
     public abstract override Task<TEntity> Execute();
 }

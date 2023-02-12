@@ -16,7 +16,7 @@ public static class ArtistEndpoints
 
     public static void RegisterArtistEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
-        routeBuilder.QueryList<ArtistsQueryAll, Artist, UserRequestBase>(BaseRoute);
+        routeBuilder.QueryList<ArtistsQueryAll, Artist, RequestBase>(BaseRoute);
 
         routeBuilder.QuerySingle<ArtistQueryById, Artist, ArtistQueryById.Properties>(ArtistQueryByIdRoute);
 

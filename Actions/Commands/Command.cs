@@ -12,7 +12,7 @@ public abstract class CommandBase
 }
 
 public abstract class RootCommand<TRequest> : Command<Root, TRequest>
-    where TRequest : UserRequestBase
+    where TRequest : RequestBase
 {
     protected override void LoadTarget()
     {
@@ -22,7 +22,7 @@ public abstract class RootCommand<TRequest> : Command<Root, TRequest>
 
 public abstract class Command<TEntity, TRequest> : CommandBase
     where TEntity : Entity
-    where TRequest : UserRequestBase
+    where TRequest : RequestBase
 {
     public TRequest Props { get; set; }
 
@@ -52,14 +52,14 @@ public abstract class Command<TEntity, TRequest> : CommandBase
     protected abstract Task InvokeLogic();
 }
 
-public abstract class UserRequestBase
+public abstract class RequestBase
 {
     public virtual IValidator NewValidator()
     {
         return new DefaultValidator();
     }
 
-    private class DefaultValidator : AbstractValidator<UserRequestBase>
+    private class DefaultValidator : AbstractValidator<RequestBase>
     {
     }
 }

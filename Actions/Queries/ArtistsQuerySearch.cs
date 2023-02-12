@@ -6,7 +6,7 @@ namespace Actions.Queries;
 
 public class ArtistsQuerySearch : QueryList<Artist, ArtistsQuerySearch.Properties>
 {
-    public class Properties : UserRequestBase
+    public class Properties : RequestBase
     {
         public string Name { get; set; }
     }
