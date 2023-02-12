@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Actions.Utils;
 using FluentValidation;
 using Model.Entities;
 using Model.Utils.Json;
@@ -36,7 +37,7 @@ public class ArtistCreateCommand : Command<Artist, ArtistCreateCommand.ArtistCre
             public ArtistCreateValidator()
             {
                 RuleFor(x => x.Name).NotEmpty();
-                RuleFor(x => x.DateOfBirth).Must(d => d < DateOnly.FromDateTime(DateTime.Today));
+                RuleFor(x => x.DateOfBirth).MustBeBefore(DateTime.Today);
             }
         }
     }
