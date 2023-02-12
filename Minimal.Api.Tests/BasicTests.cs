@@ -5,7 +5,7 @@ using NUnit.Framework;
 namespace Minimal.Api.Tests;
 
 [TestFixture]
-public class Test
+public class BasicTests
 {
     [Test]
     public void Simple_Assert()

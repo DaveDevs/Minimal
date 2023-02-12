@@ -18,7 +18,7 @@ public class Populator
 
     public async Task Go()
     {
-        var command = CommandFactory.Create<ArtistCreateCommand>();
+        var command = CommandFactory.Create<ArtistCommandCreate>();
         command.Props.Name = "Dave";
         command.Props.DateOfBirth = new DateOnly(1980, 11, 20);
         await command.Execute();

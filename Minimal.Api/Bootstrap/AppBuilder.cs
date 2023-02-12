@@ -1,5 +1,6 @@
 ﻿using Actions;
 using Microsoft.AspNetCore.Http.Json;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Model.Utils;
@@ -31,7 +32,12 @@ public static class AppBuilder
             });
         });
 
-        builder.Services.AddDbContext<ModelDataContext>();
+        var connectionString = builder.Configuration.GetConnectionString("Default");
+
+        builder.Services.AddDbContext<ModelDataContext>(options =>
+        {
+            options.UseSqlServer(connectionString);
+        });
         builder.Services.AddScoped<QueryFactory>();
         builder.Services.AddScoped<CommandFactory>();
 

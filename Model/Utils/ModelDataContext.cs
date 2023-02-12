@@ -9,10 +9,8 @@ public class ModelDataContext : DbContext
     public DbSet<Artist> Artists => Set<Artist>();
     public DbSet<Album> Albums => Set<Album>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public ModelDataContext(DbContextOptions options) : base(options)
     {
-        optionsBuilder.UseSqlServer(
-            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Minimal;Integrated Security=SSPI");
     }
 
     protected override void ConfigureConventions(ModelConfigurationBuilder builder)

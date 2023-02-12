@@ -6,9 +6,9 @@ using Model.Utils.Json;
 
 namespace Actions.Commands;
 
-public class ArtistCreateCommand : RootCommand<ArtistCreateCommand.ArtistCreateProperties>
+public class ArtistCommandCreate : RootCommand<ArtistCommandCreate.ArtistCreateProperties>
 {
-    public ArtistCreateCommand()
+    public ArtistCommandCreate()
     {
         Props = new ArtistCreateProperties();
     }
