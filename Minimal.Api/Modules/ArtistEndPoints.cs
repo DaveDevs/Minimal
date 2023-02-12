@@ -1,5 +1,7 @@
 ﻿using Actions;
 using Actions.Queries;
+using Microsoft.EntityFrameworkCore;
+using Model.Utils;
 
 namespace Minimal.Api.Modules
 {
@@ -7,13 +9,12 @@ namespace Minimal.Api.Modules
     {
         public static void RegisterArtistEndpoints(this IEndpointRouteBuilder routeBuilder)
         {
-            routeBuilder.MapGet("/Artists", (QueryFactory queryFactory) =>
-                {
-                    var query = queryFactory.Create<ArtistsQueryAll>();
-                    return query.Execute();
-                })
-                .WithName("Artists")
-                .WithOpenApi();
+            routeBuilder.MapGet("/Artists", async (QueryFactory queryFactory) =>
+            {
+                var query = queryFactory.Create<ArtistsQueryAll>();
+                var result = await query.Execute();
+                return result;
+            });
         }
     }
 }

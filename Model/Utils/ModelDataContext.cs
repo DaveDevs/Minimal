@@ -8,12 +8,12 @@ namespace Model.Utils
 {
     public class ModelDataContext : DbContext
     {
-        public DbSet<Artist> Artists { get; set; }
-        public DbSet<Album> Albums { get; set; }
+        public DbSet<Artist> Artists => Set<Artist>();
+        public DbSet<Album> Albums => Set<Album>();
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\ProjectsV13;Initial Catalog=StoreDB;");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Minimal;Integrated Security=SSPI");
         }
 
         protected override void ConfigureConventions(ModelConfigurationBuilder builder)

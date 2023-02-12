@@ -11,6 +11,6 @@ namespace Actions.Queries
     public abstract class Query<T> : Query 
         where T : Entity
     {
-        public abstract Task<List<Artist>> Execute();
+        public abstract Task<List<T>> Execute();
     }
 }
