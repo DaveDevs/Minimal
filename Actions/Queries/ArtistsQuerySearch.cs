@@ -1,6 +1,7 @@
 ﻿using Actions.Commands;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
+using Model.EntityQueries;
 
 namespace Actions.Queries;
 
@@ -9,10 +10,15 @@ public class ArtistsQuerySearch : QueryList<Artist, ArtistsQuerySearch.Propertie
     public class Properties : RequestBase
     {
         public string Name { get; set; }
+
+        public Properties(string name)
+        {
+            Name = name;
+        }
     }
 
     public override Task<List<Artist>> Execute()
     {
-        return this.Context.Artists.Where(x => x.Name.Contains(this.Props.Name)).ToListAsync();
+        return new ArtistEntityQueryByName(this.Context, this.Props.Name).Execute();
     }
 }

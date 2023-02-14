@@ -15,11 +15,11 @@ public class TestWebAppFactory : WebApplicationFactory<Program>
         {
             var dbContextDescriptor = services.SingleOrDefault(
                 d => d.ServiceType ==
-                     typeof(DbContextOptions<ModelDataContext>));
+                     typeof(DbContextOptions<MinimalDbContext>));
 
-            services.Remove(dbContextDescriptor);
+            services.Remove(dbContextDescriptor!);
 
-            services.AddDbContext<ModelDataContext>(options =>
+            services.AddDbContext<MinimalDbContext>(options =>
             {
                 options.UseSqlServer(
                     "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MinimalTest;Integrated Security=SSPI");

@@ -4,10 +4,13 @@ using Model.Utils.Converters;
 
 namespace Model.Utils;
 
-public class ModelDataContext : DbContext
+public class MinimalDbContext : DbContext
 {
-    public ModelDataContext(DbContextOptions options) : base(options)
+    public ModelContext ModelContext { get; set; }
+
+    public MinimalDbContext(DbContextOptions options, ModelContext modelContext) : base(options)
     {
+        ModelContext = modelContext;
     }
 
     public DbSet<Artist> Artists => Set<Artist>();

@@ -10,12 +10,12 @@ public abstract class Entity
         Id = id;
     }
 
-    protected Entity(ModelDataContext modelDataContext)
+    protected Entity(ModelContext modelContext)
     {
-        ModelDataContext = modelDataContext;
+        ModelContext = modelContext;
     }
 
     public int Id { get; set; }
-
-    [JsonIgnore] public ModelDataContext ModelDataContext { get; set; }
+    
+    [JsonIgnore] public ModelContext ModelContext { get; set; } = null!;
 }

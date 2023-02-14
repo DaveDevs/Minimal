@@ -1,6 +1,7 @@
 ﻿using Actions.Commands;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
+using Model.EntityQueries;
 
 namespace Actions.Queries;
 
@@ -8,6 +9,6 @@ public class ArtistsQueryAll : QueryList<Artist, RequestBase>
 {
     public override Task<List<Artist>> Execute()
     {
-        return Context.Artists.ToListAsync();
+        return new ArtistEntityQueryAll(this.Context).Execute();
     }
 }

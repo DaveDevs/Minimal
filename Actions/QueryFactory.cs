@@ -5,12 +5,12 @@ namespace Actions;
 
 public class QueryFactory
 {
-    public QueryFactory(ModelDataContext context)
+    public QueryFactory(ModelContext context)
     {
         Context = context;
     }
 
-    public ModelDataContext Context { get; set; }
+    public ModelContext Context { get; set; }
 
     public T Create<T>()
         where T : QueryBase, new()

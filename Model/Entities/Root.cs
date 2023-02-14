@@ -11,15 +11,14 @@ public class Root : Entity
     {
     }
 
-    public Root(ModelDataContext modelDataContext) : base(modelDataContext)
+    public Root(ModelContext modelContext) : base(modelContext)
     {
     }
 
     public async Task<Artist> CreateArtist(string name, DateOnly dateOfBirth)
     {
         var artist = new Artist(0, name, dateOfBirth);
-        this.ModelDataContext.Add(artist);
-        await this.ModelDataContext.SaveChangesAsync();
+        await this.ModelContext.DataMapper.Create(artist);
         return artist;
     }
 }

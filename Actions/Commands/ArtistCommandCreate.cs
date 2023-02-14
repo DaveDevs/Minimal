@@ -19,7 +19,7 @@ public class ArtistCommandCreate : RootCommand<ArtistCommandCreate.ArtistCreateP
 
     public class ArtistCreateProperties : RequestBase
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         [JsonConverter(typeof(DateOnlyJsonConverter))]
         public DateOnly DateOfBirth { get; set; }

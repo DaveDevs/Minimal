@@ -21,7 +21,7 @@ public static class AppBuilder
         {
             //Custom Ids because swaggergen can't handle duplicate class names
             //Remove the + from full name (nested classes) cos it also breaks swaggergen
-            options.CustomSchemaIds(type => type.FullName.Replace("+", ""));
+            options.CustomSchemaIds(type => type.FullName?.Replace("+", ""));
 
             // see: https://storck.io/posts/serializing-net-6-dateonly-to-json/
             options.MapType<DateOnly>(() => new OpenApiSchema
@@ -34,18 +34,21 @@ public static class AppBuilder
 
         var connectionString = builder.Configuration.GetConnectionString("Default");
 
-        builder.Services.AddDbContext<ModelDataContext>(options =>
+        builder.Services.AddDbContext<MinimalDbContext>(options =>
         {
             options.UseSqlServer(connectionString);
         });
-        builder.Services.AddScoped<QueryFactory>();
-        builder.Services.AddScoped<CommandFactory>();
 
         builder.Services.Configure<JsonOptions>(options =>
         {
             // see: https://storck.io/posts/serializing-net-6-dateonly-to-json/
             options.SerializerOptions.Converters.Add(new DateOnlyJsonConverter());
         });
+
+        builder.Services.AddScoped<QueryFactory>();
+        builder.Services.AddScoped<CommandFactory>();
+        builder.Services.AddScoped<ModelContext>();
+        builder.Services.AddScoped<DataMapper>();
 
         var app = builder.Build();
         return app;

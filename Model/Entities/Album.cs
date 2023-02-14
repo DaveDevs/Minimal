@@ -4,7 +4,11 @@ namespace Model.Entities;
 
 public class Album : Entity
 {
-    public Album(ModelDataContext modelDataContext) : base(modelDataContext)
+    public Album() : base(0)
+    {
+    }
+
+    public Album(ModelContext modelContext) : base(modelContext)
     {
     }
 
@@ -15,9 +19,9 @@ public class Album : Entity
         Artist = artist;
     }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     public int ReleaseYear { get; set; }
 
-    public Artist Artist { get; set; }
+    public Artist Artist { get; set; } = null!;
 }

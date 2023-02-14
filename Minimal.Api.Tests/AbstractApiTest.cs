@@ -9,11 +9,11 @@ namespace Minimal.Api.Tests;
 [TestFixture]
 public class AbstractApiTest
 {
-    protected HttpClient Client { get; private set; }
+    protected HttpClient Client { get; private set; } = null!;
 
-    private TestWebAppFactory Application { get; set; }
+    private TestWebAppFactory Application { get; set; } = null!;
 
-    protected ModelDataContext Context { get; private set; }
+    protected MinimalDbContext Context { get; private set; } = null!;
 
     [OneTimeSetUp]
     public void SetupApi()
@@ -22,7 +22,7 @@ public class AbstractApiTest
         Application = new TestWebAppFactory();
         Client = Application.CreateClient();
 
-        Context = Application.Services.CreateScope().ServiceProvider.GetService<ModelDataContext>();
+        Context = Application.Services.CreateScope().ServiceProvider.GetService<MinimalDbContext>()!;
     }
 
     [SetUp]

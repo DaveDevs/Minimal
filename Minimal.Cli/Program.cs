@@ -10,8 +10,10 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddScoped<CommandFactory>();
         services.AddScoped<QueryFactory>();
         services.AddScoped<Populator>();
-        services.AddDbContext<ModelDataContext>();
+        services.AddDbContext<MinimalDbContext>();
     }).Build();
 
-host.Services.GetService<Populator>().Go();
+#pragma warning disable CS8602
+await host.Services.GetService<Populator>().Go();
+#pragma warning restore CS8602
 await host.RunAsync();

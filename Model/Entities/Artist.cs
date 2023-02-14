@@ -8,7 +8,7 @@ public class Artist : Entity
     {
     }
 
-    public Artist(ModelDataContext modelDataContext) : base(modelDataContext)
+    public Artist(ModelContext modelContext) : base(modelContext)
     {
     }
 
@@ -18,7 +18,7 @@ public class Artist : Entity
         DateOfBirth = dateOfBirth;
     }
 
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
-    public DateOnly DateOfBirth { get; set; }
+    public DateOnly DateOfBirth { get; set; } 
 }

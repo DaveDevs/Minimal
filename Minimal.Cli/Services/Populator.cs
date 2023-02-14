@@ -6,7 +6,7 @@ namespace Minimal.Cli.Services;
 
 public class Populator
 {
-    public Populator(CommandFactory commandFactory, ModelDataContext dataContext)
+    public Populator(CommandFactory commandFactory, MinimalDbContext dataContext)
     {
         CommandFactory = commandFactory;
         DataContext = dataContext;
@@ -14,7 +14,7 @@ public class Populator
 
     public CommandFactory CommandFactory { get; set; }
 
-    public ModelDataContext DataContext { get; set; }
+    public MinimalDbContext DataContext { get; set; }
 
     public async Task Go()
     {

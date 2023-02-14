@@ -4,14 +4,13 @@ using Model.Utils;
 
 namespace Actions.Queries;
 
-public abstract class QueryBase
+public abstract class QueryBase : Action
 {
-    public ModelDataContext Context { get; set; }
 }
 
 public abstract class Query<TReturn, TRequest> : QueryBase
 {
-    public TRequest Props { get; set; }
+    public TRequest Props { get; set; } = default!;
 
     public abstract Task<TReturn> Execute();
 }
