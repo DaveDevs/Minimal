@@ -16,6 +16,13 @@ public class Artist : Entity
 
     public DateOnly DateOfBirth { get; set; }
 
+    public async Task Update(string name, DateOnly dateOfBirth)
+    {
+        Name = name;
+        DateOfBirth = dateOfBirth;
+        await DoUpdate();
+    }
+
     public async Task CreateAlbum(string name, int releaseYear)
     {
         await ModelContext.DataMapper.Create(new Album(0, name, releaseYear, this));

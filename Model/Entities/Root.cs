@@ -11,8 +11,11 @@ public class Root : Entity
 
     public async Task<Artist> CreateArtist(string name, DateOnly dateOfBirth)
     {
-        var artist = new Artist(0, name, dateOfBirth);
-        await ModelContext.DataMapper.Create(artist);
+        var artist = new Artist(0, name, dateOfBirth)
+        {
+            ModelContext = ModelContext
+        };
+        await artist.DoCreate();
         return artist;
     }
 }

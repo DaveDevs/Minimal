@@ -13,7 +13,8 @@ public static class ArtistEndpoints
     public static string ArtistQueryByIdRoute = $"{BaseRoute}/{{id:int}}";
     public static string ArtistsQuerySearchRoute = $"{BaseRoute}/Search";
     public static string ArtistCommandCreateRoute = $"{BaseRoute}/Create";
-    public static string AlbumCommandCreateRoute = $"{BaseRoute}/Album/Create";
+    public static string ArtistCommandUpdateRoute = $"{BaseRoute}/Update";
+    public static string AlbumCommandCreateRoute = $"{BaseRoute}/Album/DoCreate";
 
     public static void RegisterArtistEndpoints(this IEndpointRouteBuilder routeBuilder)
     {
@@ -24,6 +25,8 @@ public static class ArtistEndpoints
         routeBuilder.QueryPost<ArtistsQuerySearch, Artist, ArtistsQuerySearch.Properties>(ArtistsQuerySearchRoute);
 
         routeBuilder.CommandPost<ArtistCommandCreate, Root, ArtistCommandCreate.ArtistCreateProperties>(ArtistCommandCreateRoute);
+
+        routeBuilder.CommandPost<ArtistCommandUpdate, Artist, ArtistCommandUpdate.ArtistUpdateProperties>(ArtistCommandCreateRoute);
 
         routeBuilder.CommandPost<AlbumCommandCreate, Artist, AlbumCommandCreate.AlbumCreateProperties>(AlbumCommandCreateRoute);
     }

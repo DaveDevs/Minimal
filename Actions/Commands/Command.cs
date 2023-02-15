@@ -16,7 +16,7 @@ public abstract class RootCommand<TRequest> : Command<Root, TRequest>
     protected override Task LoadTarget()
     {
         Target = new Root();
-        Target.SetModelContext(Context);
+        Target.SetModelContext(ModelContext);
         return Task.CompletedTask;
     }
 }
@@ -33,8 +33,7 @@ public abstract class Command<TEntity, TRequest> : CommandBase
 
     protected virtual async Task LoadTarget()
     {
-        Target = await Context.DataMapper.GetById<TEntity>(TargetId);
-        Target.SetModelContext(Context);
+        Target = await ModelContext.DataMapper.GetById<TEntity>(TargetId);
     }
 
     public override async Task Execute()

@@ -9,6 +9,6 @@ public class ArtistsQueryAll : QueryList<Artist, RequestBase>
 {
     public override Task<List<Artist>> Execute()
     {
-        return new ArtistEntityQueryAll(this.Context).Execute();
+        return new ArtistEntityQueryAll(this.ModelContext).Execute();
     }
 }

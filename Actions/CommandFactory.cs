@@ -16,7 +16,7 @@ public class CommandFactory
         where T : CommandBase, new()
     {
         var command = new T();
-        command.Context = Context;
+        command.ModelContext = Context;
         return command;
     }
 }

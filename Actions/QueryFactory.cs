@@ -16,7 +16,7 @@ public class QueryFactory
         where T : QueryBase, new()
     {
         var query = new T();
-        query.Context = Context;
+        query.ModelContext = Context;
         return query;
     }
 }

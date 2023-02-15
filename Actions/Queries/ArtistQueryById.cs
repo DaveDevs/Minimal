@@ -7,7 +7,7 @@ public class ArtistQueryById : QuerySingle<Artist, ArtistQueryById.Properties>
 {
     public override Task<Artist> Execute()
     {
-        return this.Context.DataMapper.GetById<Artist>(this.Props.Id);
+        return this.ModelContext.DataMapper.GetById<Artist>(this.Props.Id);
     }
 
     public class Properties : RequestBase

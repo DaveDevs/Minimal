@@ -11,6 +11,21 @@ public abstract class Entity
         Id = id;
     }
 
+    public virtual async Task DoCreate()
+    {
+        await this.ModelContext.DataMapper.Create(this);
+    }
+
+    public virtual async Task DoDelete()
+    {
+        await this.ModelContext.DataMapper.Delete(this);
+    }
+
+    public virtual async Task DoUpdate()
+    {
+        await this.ModelContext.DataMapper.Update(this);
+    }
+
     public int Id { get; set; }
 
     [JsonIgnore] [NotMapped] 

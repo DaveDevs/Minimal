@@ -19,6 +19,6 @@ public class ArtistsQuerySearch : QueryList<Artist, ArtistsQuerySearch.Propertie
 
     public override Task<List<Artist>> Execute()
     {
-        return new ArtistEntityQueryByName(this.Context, this.Props.Name).Execute();
+        return new ArtistEntityQueryByName(this.ModelContext, this.Props.Name).Execute();
     }
 }

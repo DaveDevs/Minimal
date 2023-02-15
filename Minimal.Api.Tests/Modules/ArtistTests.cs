@@ -32,6 +32,31 @@ public class ArtistTests : AbstractApiTest
     }
 
     [Test]
+    public async Task UpdateArtist_Success()
+    {
+        // Arrange
+        var artist1 = new Artist(0, "one", new DateOnly(1998, 1, 30));
+        var created = (await this.Context.AddAsync(artist1)).Entity;
+        await this.Context.SaveChangesAsync();
+
+        artist1.Name = "updated";
+        artist1.DateOfBirth = artist1.DateOfBirth.AddYears(-10);
+
+        // Act
+        await Client.PostAsJsonAsync("/Artists/Update", new ArtistCommandCreate.ArtistCreateProperties
+        {
+            Name = artist1.Name,
+            DateOfBirth = artist1.DateOfBirth
+        });
+
+        // Assert
+        var updatedArtist = this.Context.Artists.Single(x => x.Id == this.Context.Artists.Max(x => x.Id));
+
+        artist1.Id = updatedArtist.Id;
+        updatedArtist.Should().BeEquivalentTo(artist1);
+    }
+
+    [Test]
     public async Task CreateAlbum_Success()
     {
         // Arrange
