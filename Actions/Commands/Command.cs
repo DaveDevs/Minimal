@@ -38,9 +38,19 @@ public abstract class Command<TEntity, TRequest> : CommandBase
 
     public override async Task Execute()
     {
-        await LoadTarget();
-        await Validate();
-        await InvokeLogic();
+        try
+        {
+            await this.ModelContext.DataMapper.StartTransaction();
+            await LoadTarget();
+            await Validate();
+            await InvokeLogic();
+            await this.ModelContext.DataMapper.CommitTransaction();
+        }
+        catch
+        {
+            await this.ModelContext.DataMapper.RollbackTransaction();
+            throw;
+        }
     }
 
     public async Task Validate()
