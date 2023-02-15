@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 
 namespace Actions.Commands;
@@ -12,9 +11,12 @@ public abstract class CommandBase : Action
 public abstract class RootCommand<TRequest> : Command<Root, TRequest>
     where TRequest : RequestBase
 {
+    public override int TargetId => throw new NotImplementedException("Target = root. No Id.");
+
     protected override Task LoadTarget()
     {
-        Target = new Root(Context);
+        Target = new Root();
+        Target.SetModelContext(Context);
         return Task.CompletedTask;
     }
 }
@@ -27,11 +29,12 @@ public abstract class Command<TEntity, TRequest> : CommandBase
 
     public TEntity Target { get; set; } = null!;
 
-    public int TargetId { get; set; }
+    public abstract int TargetId { get; }
 
     protected virtual async Task LoadTarget()
     {
-        await Context.DataMapper.GetById<TEntity>(this.TargetId);
+        Target = await Context.DataMapper.GetById<TEntity>(TargetId);
+        Target.SetModelContext(Context);
     }
 
     public override async Task Execute()

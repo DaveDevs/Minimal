@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using System.Net;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace Minimal.Api.Utils;
 
@@ -15,7 +13,7 @@ public class ValidationFilter : IEndpointFilter
         {
             result = await next(context);
         }
-        catch(ValidationException ex)
+        catch (ValidationException ex)
         {
             return TypedResults.BadRequest(ex.Errors);
         }
@@ -23,4 +21,3 @@ public class ValidationFilter : IEndpointFilter
         return result;
     }
 }
-

@@ -6,11 +6,8 @@ namespace Model.Utils;
 
 public class MinimalDbContext : DbContext
 {
-    public ModelContext ModelContext { get; set; }
-
-    public MinimalDbContext(DbContextOptions options, ModelContext modelContext) : base(options)
+    public MinimalDbContext(DbContextOptions options) : base(options)
     {
-        ModelContext = modelContext;
     }
 
     public DbSet<Artist> Artists => Set<Artist>();

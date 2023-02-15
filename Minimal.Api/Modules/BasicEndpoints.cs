@@ -9,7 +9,7 @@ public static class BasicEndpoints
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        routeBuilder.MapGet("/weatherforecast", () =>
+        routeBuilder.MapGet("basic/weatherforecast", () =>
             {
                 var forecast = Enumerable.Range(1, 5).Select(index =>
                         new WeatherForecast
@@ -20,13 +20,9 @@ public static class BasicEndpoints
                         ))
                     .ToArray();
                 return forecast;
-            })
-            .WithName("GetWeatherForecast")
-            .WithOpenApi();
+            });
 
-        routeBuilder.MapGet("/hello", () => "Hello World!")
-            .WithName("Hello")
-            .WithOpenApi();
+        routeBuilder.MapGet("basic/hello", () => "Hello World!").WithTags("Foo");
     }
 }
 

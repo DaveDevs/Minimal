@@ -1,14 +1,8 @@
-﻿using Model.Utils;
-
-namespace Model.Entities;
+﻿namespace Model.Entities;
 
 public class Album : Entity
 {
     public Album() : base(0)
-    {
-    }
-
-    public Album(ModelContext modelContext) : base(modelContext)
     {
     }
 

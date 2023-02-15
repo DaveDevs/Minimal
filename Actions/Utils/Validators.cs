@@ -10,4 +10,9 @@ public static class DateValidators
     {
         return ruleBuilder.SetValidator(new LessThanValidator<T, DateOnly>(DateOnly.FromDateTime(valueToCompare)));
     }
+
+    public static IRuleBuilderOptions<T, int> IsAnId<T>(this IRuleBuilder<T, int> ruleBuilder)
+    {
+        return ruleBuilder.SetValidator(new GreaterThanValidator<T, int>(0));
+    }
 }

@@ -5,7 +5,7 @@ namespace Model.Utils
 {
     public class DataMapper
     {
-        public MinimalDbContext DbContext { get; }
+        private MinimalDbContext DbContext { get; }
 
         public DataMapper(MinimalDbContext dbContext)
         {

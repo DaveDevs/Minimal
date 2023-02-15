@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Model.Utils;
 
 namespace Model.Entities;
@@ -10,12 +11,13 @@ public abstract class Entity
         Id = id;
     }
 
-    protected Entity(ModelContext modelContext)
+    public int Id { get; set; }
+
+    [JsonIgnore] [NotMapped] 
+    public ModelContext ModelContext { get; set; } = null!;
+
+    public void SetModelContext(ModelContext modelContext)
     {
         ModelContext = modelContext;
     }
-
-    public int Id { get; set; }
-    
-    [JsonIgnore] public ModelContext ModelContext { get; set; } = null!;
 }

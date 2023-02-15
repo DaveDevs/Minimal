@@ -1,14 +1,8 @@
-﻿using Model.Utils;
-
-namespace Model.Entities;
+﻿namespace Model.Entities;
 
 public class Artist : Entity
 {
     public Artist() : base(0)
-    {
-    }
-
-    public Artist(ModelContext modelContext) : base(modelContext)
     {
     }
 
@@ -20,5 +14,10 @@ public class Artist : Entity
 
     public string Name { get; set; } = string.Empty;
 
-    public DateOnly DateOfBirth { get; set; } 
+    public DateOnly DateOfBirth { get; set; }
+
+    public async Task CreateAlbum(string name, int releaseYear)
+    {
+        await ModelContext.DataMapper.Create(new Album(0, name, releaseYear, this));
+    }
 }

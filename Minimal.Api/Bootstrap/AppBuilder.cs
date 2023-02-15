@@ -19,8 +19,17 @@ public static class AppBuilder
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(options =>
         {
-            //Custom Ids because swaggergen can't handle duplicate class names
-            //Remove the + from full name (nested classes) cos it also breaks swaggergen
+            // see: https://stackoverflow.com/questions/73162922/how-do-you-sort-endpoints-in-swagger-with-the-minimal-api-net-6
+            options.TagActionsBy(d =>
+            {
+                var rootSegment = d.RelativePath?
+                    .Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries)
+                    .FirstOrDefault() ?? "Home";
+                return new List<string> { rootSegment! };
+            });
+
+            // Custom Ids because swaggergen can't handle duplicate class names
+            // Remove the + from full name (nested classes) cos it also breaks swaggergen
             options.CustomSchemaIds(type => type.FullName?.Replace("+", ""));
 
             // see: https://storck.io/posts/serializing-net-6-dateonly-to-json/
