@@ -21,14 +21,12 @@ public class AbstractApiTest
         FluentAssertionsBootstrapper.Bootstrap();
         Application = new TestWebAppFactory();
         Client = Application.CreateClient();
-
-        Context = Application.Services.CreateScope().ServiceProvider.GetService<MinimalDbContext>()!;
     }
 
     [SetUp]
     public void BeforeEachTest()
     {
-        FluentAssertionsBootstrapper.Bootstrap();
+        Context = Application.Services.CreateScope().ServiceProvider.GetService<MinimalDbContext>()!;
         Context.Database.EnsureDeleted();
         Context.Database.EnsureCreated();
     }

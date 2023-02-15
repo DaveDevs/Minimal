@@ -18,7 +18,7 @@ public class BasicTests
         await using var application = new WebApplicationFactory<Program>();
         using var client = application.CreateClient();
 
-        var response = await client.GetStringAsync("/hello");
+        var response = await client.GetStringAsync("basic/hello");
 
         Assert.AreEqual("Hello World!", response);
     }
