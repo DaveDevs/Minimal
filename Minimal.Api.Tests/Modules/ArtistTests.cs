@@ -77,7 +77,7 @@ public class ArtistTests : AbstractApiTest
     }
 
     [Test]
-    [Ignore]
+    [Ignore("fails")]
     public async Task GetById_NoResult()
     {
         // Act
