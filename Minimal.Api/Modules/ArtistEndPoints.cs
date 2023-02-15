@@ -10,7 +10,7 @@ public static class ArtistEndpoints
 {
     public static string BaseRoute = "Artists";
 
-    public static string ArtistQueryByIdRoute = $"{BaseRoute}/{{id:int}}/Details";
+    public static string ArtistQueryByIdRoute = $"{BaseRoute}/{{id:int}}";
     public static string ArtistsQuerySearchRoute = $"{BaseRoute}/Search";
     public static string ArtistCommandCreateRoute = $"{BaseRoute}/Create";
     public static string AlbumCommandCreateRoute = $"{BaseRoute}/Album/Create";

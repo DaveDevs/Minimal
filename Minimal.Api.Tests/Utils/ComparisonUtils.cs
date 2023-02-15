@@ -11,7 +11,7 @@ internal class CustomRules : IMemberSelectionRule
     public IEnumerable<IMember> SelectMembers(INode currentNode, IEnumerable<IMember> selectedMembers,
         MemberSelectionContext context)
     {
-        var props = context.Type.Properties().Where(x => x.PropertyType != typeof(MinimalDbContext));
+        var props = context.Type.GetProperties().Where(x => x.PropertyType != typeof(ModelContext));
 
         return props.Select(x => new Property(x, currentNode)).ToList();
     }
