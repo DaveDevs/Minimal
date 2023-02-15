@@ -1,4 +1,6 @@
-﻿namespace Model.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Model.Entities;
 
 public class Artist : Entity
 {
@@ -12,9 +14,11 @@ public class Artist : Entity
         DateOfBirth = dateOfBirth;
     }
 
-    public string Name { get; set; } = string.Empty;
+    [JsonInclude] 
+    public string Name { get; protected internal set; } = string.Empty;
 
-    public DateOnly DateOfBirth { get; set; }
+    [JsonInclude] 
+    public DateOnly DateOfBirth { get; protected set; }
 
     public async Task Update(string name, DateOnly dateOfBirth)
     {

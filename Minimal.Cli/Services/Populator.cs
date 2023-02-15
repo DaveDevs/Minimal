@@ -12,9 +12,9 @@ public class Populator
         DataContext = dataContext;
     }
 
-    public CommandFactory CommandFactory { get; set; }
+    public CommandFactory CommandFactory { get; protected set; }
 
-    public MinimalDbContext DataContext { get; set; }
+    public MinimalDbContext DataContext { get; protected set; }
 
     public async Task Go()
     {

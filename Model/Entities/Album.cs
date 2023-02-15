@@ -1,4 +1,6 @@
-﻿namespace Model.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace Model.Entities;
 
 public class Album : Entity
 {
@@ -12,10 +14,13 @@ public class Album : Entity
         ReleaseYear = releaseYear;
         Artist = artist;
     }
-
-    public string Name { get; set; } = string.Empty;
-
-    public int ReleaseYear { get; set; }
-
-    public Artist Artist { get; set; } = null!;
+    
+    [JsonInclude]
+    public string Name { get; protected set; } = string.Empty;
+    
+    [JsonInclude]
+    public int ReleaseYear { get; protected set; }
+    
+    [JsonInclude]
+    public Artist Artist { get; protected set; } = null!;
 }

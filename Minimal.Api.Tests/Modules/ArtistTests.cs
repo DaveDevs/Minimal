@@ -1,9 +1,8 @@
 ﻿using System.Net.Http.Json;
-using System.Text;
 using Actions.Commands;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Model.Entities;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace Minimal.Api.Tests.Modules;
@@ -25,10 +24,9 @@ public class ArtistTests : AbstractApiTest
         });
 
         // Assert
-        var createdArtist = this.Context.Artists.Single(x => x.Id == this.Context.Artists.Max(x => x.Id));
+        var createdArtist = Context.Artists.Single(x => x.Id == Context.Artists.Max(x => x.Id));
 
-        artist1.Id = createdArtist.Id;
-        createdArtist.Should().BeEquivalentTo(artist1);
+        createdArtist.Should().BeEquivalentTo(new Artist(createdArtist.Id, artist1.Name, artist1.DateOfBirth));
     }
 
     [Test]
@@ -36,24 +34,21 @@ public class ArtistTests : AbstractApiTest
     {
         // Arrange
         var artist1 = new Artist(0, "one", new DateOnly(1998, 1, 30));
-        var created = (await this.Context.AddAsync(artist1)).Entity;
-        await this.Context.SaveChangesAsync();
-
-        artist1.Name = "updated";
-        artist1.DateOfBirth = artist1.DateOfBirth.AddYears(-10);
+        var created = (await Context.AddAsync(artist1)).Entity;
+        await Context.SaveChangesAsync();
 
         // Act
-        await Client.PostAsJsonAsync("/Artists/Update", new ArtistCommandCreate.ArtistCreateProperties
+        await Client.PostAsJsonAsync("/Artists/Update", new ArtistCommandUpdate.ArtistUpdateProperties()
         {
-            Name = artist1.Name,
-            DateOfBirth = artist1.DateOfBirth
+            Id = created.Id,
+            Name = "new",
+            DateOfBirth = artist1.DateOfBirth.AddYears(-10)
         });
 
         // Assert
-        var updatedArtist = this.Context.Artists.Single(x => x.Id == this.Context.Artists.Max(x => x.Id));
+        var updatedArtist = Context.Artists.Single(x => x.Id == Context.Artists.Max(x => x.Id));
 
-        artist1.Id = updatedArtist.Id;
-        updatedArtist.Should().BeEquivalentTo(artist1);
+        updatedArtist.Should().BeEquivalentTo(new Artist(updatedArtist.Id, "new", artist1.DateOfBirth.AddYears(-10)));
     }
 
     [Test]
@@ -61,13 +56,13 @@ public class ArtistTests : AbstractApiTest
     {
         // Arrange
         var artist1 = new Artist(0, "one", new DateOnly(1998, 1, 30));
-        var created = (await this.Context.AddAsync(artist1)).Entity;
-        await this.Context.SaveChangesAsync();
+        var created = (await Context.AddAsync(artist1)).Entity;
+        await Context.SaveChangesAsync();
 
         var album1 = new Album(9999, "songs for the deaf", 2002, created);
 
         // Act
-        await Client.PostAsJsonAsync("/Artists/Album/Create", new AlbumCommandCreate.AlbumCreateProperties()
+        await Client.PostAsJsonAsync("/Artists/Album/Create", new AlbumCommandCreate.AlbumCreateProperties
         {
             Name = album1.Name,
             ReleaseYear = album1.ReleaseYear,
@@ -75,10 +70,9 @@ public class ArtistTests : AbstractApiTest
         });
 
         // Assert
-        var createdAlbum = this.Context.Albums.Single(x => x.Id == this.Context.Albums.Max(x => x.Id));
+        var createdAlbum = Context.Albums.Include(x => x.Artist).Single(x => x.Id == Context.Albums.Max(x => x.Id));
 
-        album1.Id = createdAlbum.Id;
-        createdAlbum.Should().BeEquivalentTo(album1);
+        createdAlbum.Should().BeEquivalentTo(new Album(createdAlbum.Id, album1.Name, album1.ReleaseYear, album1.Artist));
     }
 
     [Test]
@@ -95,8 +89,8 @@ public class ArtistTests : AbstractApiTest
     {
         // Arrange
         var artist1 = new Artist(0, "one", new DateOnly(1998, 1, 30));
-        await this.Context.AddAsync(artist1);
-        await this.Context.SaveChangesAsync();
+        await Context.AddAsync(artist1);
+        await Context.SaveChangesAsync();
 
         // Act
         var request = await Client.GetAsync($"/Artists/{artist1.Id}");
@@ -119,8 +113,8 @@ public class ArtistTests : AbstractApiTest
     {
         // Arrange
         var artist1 = new Artist(0, "one", new DateOnly(1998, 1, 30));
-        await this.Context.AddAsync(artist1);
-        await this.Context.SaveChangesAsync();
+        await Context.AddAsync(artist1);
+        await Context.SaveChangesAsync();
         IList<Artist> expected = new List<Artist> { artist1 };
 
         // Act
@@ -136,8 +130,8 @@ public class ArtistTests : AbstractApiTest
     {
         // Arrange
         var artist1 = new Artist(0, "one", new DateOnly(1998, 1, 30));
-        await this.Context.AddAsync(artist1);
-        await this.Context.SaveChangesAsync();
+        await Context.AddAsync(artist1);
+        await Context.SaveChangesAsync();
 
         IList<Artist> expected = new List<Artist> { artist1 };
 

@@ -9,7 +9,7 @@ public class ArtistsQuerySearch : QueryList<Artist, ArtistsQuerySearch.Propertie
 {
     public class Properties : RequestBase
     {
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         public Properties(string name)
         {

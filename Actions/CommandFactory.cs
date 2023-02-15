@@ -5,18 +5,18 @@ namespace Actions;
 
 public class CommandFactory
 {
-    public CommandFactory(ModelContext context)
+    public CommandFactory(ModelContext modelContext)
     {
-        Context = context;
+        ModelContext = modelContext;
     }
 
-    public ModelContext Context { get; set; }
+    public ModelContext ModelContext { get; protected set; }
 
     public T Create<T>()
         where T : CommandBase, new()
     {
         var command = new T();
-        command.ModelContext = Context;
+        command.SetModelContext(ModelContext);
         return command;
     }
 }

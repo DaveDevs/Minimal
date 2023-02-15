@@ -9,6 +9,9 @@ namespace Minimal.Api.Tests;
 
 public class TestWebAppFactory : WebApplicationFactory<Program>
 {
+    public const string TestConnectionString =
+        "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MinimalTest;Integrated Security=SSPI";
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureTestServices(services =>
@@ -21,8 +24,7 @@ public class TestWebAppFactory : WebApplicationFactory<Program>
 
             services.AddDbContext<MinimalDbContext>(options =>
             {
-                options.UseSqlServer(
-                    "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MinimalTest;Integrated Security=SSPI");
+                options.UseSqlServer(TestConnectionString);
             });
         });
 

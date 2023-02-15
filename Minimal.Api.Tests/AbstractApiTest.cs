@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Minimal.Api.Tests.Utils;
 using Model.Utils;
@@ -9,12 +9,6 @@ namespace Minimal.Api.Tests;
 [TestFixture]
 public class AbstractApiTest
 {
-    protected HttpClient Client { get; private set; } = null!;
-
-    private TestWebAppFactory Application { get; set; } = null!;
-
-    protected MinimalDbContext Context { get; private set; } = null!;
-
     [OneTimeSetUp]
     public void SetupApi()
     {
@@ -27,6 +21,7 @@ public class AbstractApiTest
     public void BeforeEachTest()
     {
         Context = Application.Services.CreateScope().ServiceProvider.GetService<MinimalDbContext>()!;
+        Context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         Context.Database.EnsureDeleted();
         Context.Database.EnsureCreated();
     }
@@ -36,4 +31,10 @@ public class AbstractApiTest
     {
         Application.Dispose();
     }
+
+    private TestWebAppFactory Application { get; set; } = null!;
+
+    protected HttpClient Client { get; private protected set; } = null!;
+
+    protected MinimalDbContext Context { get; private protected set; } = null!;
 }

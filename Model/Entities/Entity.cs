@@ -26,10 +26,11 @@ public abstract class Entity
         await this.ModelContext.DataMapper.Update(this);
     }
 
-    public int Id { get; set; }
+    [JsonInclude]
+    public int Id { get; protected set; }
 
     [JsonIgnore] [NotMapped] 
-    public ModelContext ModelContext { get; set; } = null!;
+    public ModelContext ModelContext { get; protected set; } = null!;
 
     public void SetModelContext(ModelContext modelContext)
     {

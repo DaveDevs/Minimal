@@ -53,7 +53,7 @@ namespace Minimal.Api.Utils
             where TRequest : RequestBase
         {
             var query = queryFactory.Create<TQuery>();
-            query.Props = request;
+            query.SetProps(request);
             return TypedResults.Ok(await query.Execute());
         }
 
@@ -78,7 +78,7 @@ namespace Minimal.Api.Utils
             where TRequest : RequestBase
         {
             var query = queryFactory.Create<TQuery>();
-            query.Props = request;
+            query.SetProps(request);
             return TypedResults.Ok(await query.Execute());
         }
 
@@ -104,7 +104,7 @@ namespace Minimal.Api.Utils
             where TRequest : RequestBase
         {
             var command = commandFactory.Create<TCommand>();
-            command.Props = request;
+            command.SetProps(request);
 
             await command.Execute();
             return TypedResults.Ok();

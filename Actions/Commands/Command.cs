@@ -25,11 +25,16 @@ public abstract class Command<TEntity, TRequest> : CommandBase
     where TEntity : Entity
     where TRequest : RequestBase
 {
-    public TRequest Props { get; set; } = null!;
+    public TRequest Props { get; protected set; } = null!;
 
-    public TEntity Target { get; set; } = null!;
+    public TEntity Target { get; protected set; } = null!;
 
     public abstract int TargetId { get; }
+
+    public void SetProps(TRequest props)
+    {
+        Props = props;
+    }
 
     protected virtual async Task LoadTarget()
     {
@@ -40,15 +45,15 @@ public abstract class Command<TEntity, TRequest> : CommandBase
     {
         try
         {
-            await this.ModelContext.DataMapper.StartTransaction();
+            await ModelContext.DataMapper.StartTransaction();
             await LoadTarget();
             await Validate();
             await InvokeLogic();
-            await this.ModelContext.DataMapper.CommitTransaction();
+            await ModelContext.DataMapper.CommitTransaction();
         }
         catch
         {
-            await this.ModelContext.DataMapper.RollbackTransaction();
+            await ModelContext.DataMapper.RollbackTransaction();
             throw;
         }
     }

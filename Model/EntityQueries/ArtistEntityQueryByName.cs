@@ -5,7 +5,7 @@ namespace Model.EntityQueries
 {
     public class ArtistEntityQueryByName : EntityQueryList<Artist>
     {
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         public ArtistEntityQueryByName(ModelContext context, string name) : base(context)
         {

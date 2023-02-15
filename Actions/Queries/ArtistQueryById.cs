@@ -12,6 +12,6 @@ public class ArtistQueryById : QuerySingle<Artist, ArtistQueryById.Properties>
 
     public class Properties : RequestBase
     {
-        public int Id { get; set; }
+        public int Id { get; protected set; }
     }
 }

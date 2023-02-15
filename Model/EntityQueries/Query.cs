@@ -11,7 +11,7 @@ public abstract class EntityQueryBase
         Context = context;
     }
 
-    public ModelContext Context { get; set; }
+    public ModelContext Context { get; protected set; }
 }
 
 public abstract class EntityQueryList<TEntity> : EntityQueryBase

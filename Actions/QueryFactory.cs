@@ -10,13 +10,13 @@ public class QueryFactory
         Context = context;
     }
 
-    public ModelContext Context { get; set; }
+    public ModelContext Context { get; protected set; }
 
     public T Create<T>()
         where T : QueryBase, new()
     {
         var query = new T();
-        query.ModelContext = Context;
+        query.SetModelContext(Context);
         return query;
     }
 }

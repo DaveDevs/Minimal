@@ -1,6 +1,5 @@
 ﻿using Actions.Commands;
 using Model.Entities;
-using Model.Utils;
 
 namespace Actions.Queries;
 
@@ -10,7 +9,9 @@ public abstract class QueryBase : Action
 
 public abstract class Query<TReturn, TRequest> : QueryBase
 {
-    public TRequest Props { get; set; } = default!;
+    public TRequest Props { get; protected set; } = default!;
+
+    public void SetProps(TRequest props) => Props = props;
 
     public abstract Task<TReturn> Execute();
 }
