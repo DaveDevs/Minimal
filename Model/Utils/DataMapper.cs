@@ -15,24 +15,25 @@ namespace Model.Utils
         public async Task<T> Create<T>(T entity)
             where T : Entity
         {
-            var created = await DbContext.Set<T>().AddAsync(entity);
+            this.DbContext.Entry(entity).State = EntityState.Added;
             await this.Save();
-            return created.Entity;
+            return entity;
         }
 
         public async Task<T> Delete<T>(T entity)
             where T : Entity
         {
-            var deleted = DbContext.Set<T>().Remove(entity);
+            this.DbContext.Entry(entity).State = EntityState.Deleted;
             await this.Save();
-            return deleted.Entity;
+            return entity;
         }
 
-        public async Task Update<T>(T entity)
+        public async Task<T> Update<T>(T entity)
             where T : Entity
         {
+            this.DbContext.Entry(entity).State = EntityState.Modified;
             await this.Save();
-            return;
+            return entity;
         }
 
         public Task<T> GetById<T>(int id)
