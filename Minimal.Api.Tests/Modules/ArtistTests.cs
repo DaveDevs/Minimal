@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net;
+using System.Net.Http.Json;
 using Actions.Commands;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -76,12 +77,14 @@ public class ArtistTests : AbstractApiTest
     }
 
     [Test]
-    [Ignore("throws - revisit")]
-    public async Task GetbyId_NoResult()
+    [Ignore]
+    public async Task GetById_NoResult()
     {
-        var result = await Client.GetStringAsync("/Artists/1");
+        // Act
+        var result = await Client.GetAsync("/Artists/1");
 
-        result.Should().Be("[]");
+        // Assert
+        result.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }
 
     [Test]
