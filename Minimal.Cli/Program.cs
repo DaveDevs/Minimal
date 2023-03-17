@@ -22,4 +22,3 @@ var host = Host.CreateDefaultBuilder(args)
 #pragma warning disable CS8602
 await host.Services.GetService<Populator>().Go();
 #pragma warning restore CS8602
-await host.RunAsync();
