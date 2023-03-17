@@ -1,4 +1,5 @@
 ﻿using Actions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Minimal.Cli.Services;
@@ -10,7 +11,12 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddScoped<CommandFactory>();
         services.AddScoped<QueryFactory>();
         services.AddScoped<Populator>();
-        services.AddDbContext<MinimalDbContext>();
+        services.AddScoped<ModelContext>();
+        services.AddScoped<DataMapper>();
+        services.AddDbContext<MinimalDbContext>(options =>
+        {
+            options.UseSqlServer($"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Minimal;Integrated Security=SSPI");
+        });
     }).Build();
 
 #pragma warning disable CS8602

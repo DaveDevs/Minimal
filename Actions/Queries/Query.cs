@@ -23,9 +23,16 @@ public abstract class QueryList<TEntity, TRequest> : Query<List<TEntity>, TReque
     public abstract override Task<List<TEntity>> Execute();
 }
 
-public abstract class QuerySingle<TEntity, TRequest> : Query<TEntity, TRequest>
+public abstract class QuerySingle<TEntity> : Query<TEntity, QuerySingle<TEntity>.Properties>
     where TEntity : Entity
-    where TRequest : RequestBase
 {
-    public abstract override Task<TEntity> Execute();
+    public override Task<TEntity> Execute()
+    {
+        return this.ModelContext.DataMapper.GetById<TEntity>(this.Props.Id);
+    }
+
+    public class Properties : RequestBase
+    {
+        public int Id { get; protected set; }
+    }
 }
